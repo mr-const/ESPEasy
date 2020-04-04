@@ -365,9 +365,9 @@ void setup()
     String event = F("System#Wake");
   }
 
-  setWebserverRunning(true);
-
   WiFiConnectRelaxed();
+
+  setWebserverRunning(true);
 
   #ifdef FEATURE_REPORTING
   ReportStatus();
