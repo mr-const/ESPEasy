@@ -82,7 +82,6 @@ void SystemVariables::parseSystemVariables(String& s, boolean useURLencode)
       #endif // ifdef USES_MQTT
 
       #ifdef USES_P037
-      case ISMQTTIMP:         value = String(P037_MQTTImport_connected); break;
       #else // ifdef USES_P037
       case ISMQTTIMP:         value = "0"; break;
       #endif // USES_P037

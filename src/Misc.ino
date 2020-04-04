@@ -385,13 +385,6 @@ void prepare_deepSleep(int dsdelay)
   {
     addLog(LOG_LEVEL_INFO, F("SLEEP: Entering deep sleep in 30 seconds."));
 
-    if (Settings.UseRules && isDeepSleepEnabled())
-    {
-      eventQueue.add(F("System#NoSleep=30"));
-      while (processNextEvent()) {
-        delay(1);
-      }
-    }
     delayBackground(30000);
 
     // disabled?
@@ -406,15 +399,6 @@ void prepare_deepSleep(int dsdelay)
 
 void deepSleepStart(int dsdelay)
 {
-  // separate function that is called from above function or directly from rules, usign deepSleep_wakeTime as a one-shot
-  if (Settings.UseRules)
-  {
-    eventQueue.add(F("System#Sleep"));
-    while (processNextEvent()) {
-      delay(1);
-    }
-  }
-
   addLog(LOG_LEVEL_INFO, F("SLEEP: Powering down to deepsleep..."));
   RTC.deepSleepState = 1;
   prepareShutdown();
@@ -1696,10 +1680,7 @@ String parseTemplate_padded(String& tmpString, byte minimal_lineSize, bool useUR
 
   parseStandardConversions(newString, useURLencode);
 
-  // process other markups as well
-  parse_string_commands(newString); 
-
-  // padding spaces
+    // padding spaces
   while (newString.length() < minimal_lineSize) {
     newString += ' ';
   }

@@ -216,7 +216,6 @@ String getMiscStatsName(int stat) {
     case TRY_OPEN_FILE:           return F("TryOpenFile()");
     case SPIFFS_GC_SUCCESS:       return F("SPIFFS GC success");
     case SPIFFS_GC_FAIL:          return F("SPIFFS GC fail");
-    case RULES_PROCESSING:        return F("rulesProcessing()");
     case GRAT_ARP_STATS:          return F("sendGratuitousARP()");
     case BACKGROUND_TASKS:        return F("backgroundtasks()");
     case HANDLE_SCHEDULER_IDLE:   return F("handle_schedule() idle");

@@ -1,9 +1,5 @@
 
 #include "src/Commands/Common.h"
-#ifdef USES_BLYNK
-# include "src/Commands/Blynk.h"
-# include "src/Commands/Blynk_c015.h"
-#endif // ifdef USES_BLYNK
 #include "src/Commands/Controller.h"
 #include "src/Commands/Diagnostic.h"
 #include "src/Commands/HTTP.h"
@@ -14,7 +10,6 @@
 #include "src/Commands/Networks.h"
 #include "src/Commands/Notifications.h"
 #include "src/Commands/RTC.h"
-#include "src/Commands/Rules.h"
 #include "src/Commands/SDCARD.h"
 #include "src/Commands/Settings.h"
 #include "src/Commands/System.h"
@@ -22,7 +17,6 @@
 #include "src/Commands/Time.h"
 #include "src/Commands/Timer.h"
 #include "src/Commands/UPD.h"
-#include "src/Commands/wd.h"
 #include "src/Commands/WiFi.h"
 
 #include "ESPEasy_common.h"
@@ -118,7 +112,6 @@ bool executeInternalCommand(const char *cmd, struct EventStruct *event, const ch
   switch (cmd_lc[0]) {
     case 'a': {
       COMMAND_CASE("accessinfo", Command_AccessInfo_Ls, 0); // Network Command
-      COMMAND_CASE("asyncevent", Command_Rules_Async_Events,  -1); // Rule.h
       break;
     }
     case 'b': {
@@ -154,8 +147,6 @@ bool executeInternalCommand(const char *cmd, struct EventStruct *event, const ch
     }
     case 'e': {
       COMMAND_CASE("erasesdkwifi", Command_WiFi_Erase,     0); // WiFi.h
-      COMMAND_CASE(       "event", Command_Rules_Events,  -1); // Rule.h
-      COMMAND_CASE("executerules", Command_Rules_Execute, -1); // Rule.h
       break;
     }
     case 'g': {
@@ -174,7 +165,6 @@ bool executeInternalCommand(const char *cmd, struct EventStruct *event, const ch
       break;
     }
     case 'l': {
-      COMMAND_CASE(          "let", Command_Rules_Let,     2);    // Rules.h
       COMMAND_CASE(         "load", Command_Settings_Load, 0);    // Settings.h
       COMMAND_CASE(     "logentry", Command_logentry,      1);    // Diagnostic.h
     #ifndef BUILD_NO_DIAGNOSTIC_COMMANDS
@@ -214,7 +204,6 @@ bool executeInternalCommand(const char *cmd, struct EventStruct *event, const ch
       COMMAND_CASE(                 "reset", Command_Settings_Reset,             0); // Settings.h
       COMMAND_CASE("resetflashwritecounter", Command_RTC_resetFlashWriteCounter, 0); // RTC.h
       COMMAND_CASE(               "restart", Command_System_Restart,             0); // System.h
-      COMMAND_CASE(                 "rules", Command_Rules_UseRules,             1); // Rule.h
       break;
     }
     case 's': {
@@ -268,8 +257,6 @@ bool executeInternalCommand(const char *cmd, struct EventStruct *event, const ch
       break;
     }
     case 'w': {
-      COMMAND_CASE(      "wdconfig", Command_WD_Config,       3); // WD.h
-      COMMAND_CASE(        "wdread", Command_WD_Read,         2); // WD.h
     if (cmd_lc[1] == 'i') {
       COMMAND_CASE(    "wifiapmode", Command_Wifi_APMode,     0); // WiFi.h
       COMMAND_CASE(   "wificonnect", Command_Wifi_Connect,    0); // WiFi.h

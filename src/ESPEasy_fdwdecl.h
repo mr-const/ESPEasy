@@ -103,7 +103,6 @@ bool safe_strncpy(char       *dest,
                   size_t      max_size);
 
 
-void rulesProcessing(String& event);
 void setIntervalTimer(unsigned long id);
 void schedule_notification_event_timer(byte NotificationProtocolIndex, byte Function, struct EventStruct *event);
 

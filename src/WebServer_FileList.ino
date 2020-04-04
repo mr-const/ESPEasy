@@ -120,10 +120,7 @@ void handle_filelist() {
 
   String fdelete = web_server.arg(F("delete"));
 
-  if (tryDeleteFile(fdelete))
-  {
-    checkRuleSets();
-  }
+  tryDeleteFile(fdelete);
   # ifdef USES_C016
 
   if (web_server.hasArg(F("delcache"))) {

@@ -44,9 +44,6 @@ void handle_login() {
       if (Settings.UseRules)
       {
         String event = F("Login#Failed");
-
-        // TD-er: Do not add to the eventQueue, but execute right now.
-        rulesProcessing(event);
       }
     }
   }

@@ -759,21 +759,6 @@ To create/register a plugin, you have to :
 #endif
 
 
-#ifdef CONTROLLER_SET_STABLE
-    #define USES_C001   // Domoticz HTTP
-    #define USES_C002   // Domoticz MQTT
-    #define USES_C003   // Nodo telnet
-    #define USES_C004   // ThingSpeak
-    #define USES_C005   // Home Assistant (openHAB) MQTT
-    #define USES_C006   // PiDome MQTT
-    #define USES_C007   // Emoncms
-    #define USES_C008   // Generic HTTP
-    #define USES_C009   // FHEM HTTP
-    #define USES_C010   // Generic UDP
-    #define USES_C013   // ESPEasy P2P network
-#endif
-
-
 #ifdef NOTIFIER_SET_STABLE
     #define USES_N001   // Email
     #define USES_N002   // Buzzer
@@ -831,16 +816,6 @@ To create/register a plugin, you have to :
     #define USES_P090   // CCS811 TVOC/eCO2 Sensor 
     #define USES_P091	// SerSwitch
     #define USES_P093   // Mitsubishi Heat Pump
-#endif
-
-
-#ifdef CONTROLLER_SET_TESTING
-    #define USES_C011   // Generic HTTP Advanced
-    #define USES_C012   // Blynk HTTP
-    #define USES_C014   // homie 3 & 4dev MQTT
-    //#define USES_C015   // Blynk
-    #define USES_C017   // Zabbix
-    // #define USES_C018 // TTN RN2483
 #endif
 
 
@@ -998,16 +973,6 @@ To create/register a plugin, you have to :
     #define USES_DOMOTICZ
   #endif
 #endif
-
-#if defined(USES_C002) || defined (USES_C005) || defined(USES_C006) || defined(USES_C014) || defined(USES_P037)
-  #define USES_MQTT
-#endif
-
-#if defined(USES_C012) || defined (USES_C015)
-  #define USES_BLYNK
-#endif
-
-
 
 #ifdef USES_MQTT
 // MQTT_MAX_PACKET_SIZE : Maximum packet size

@@ -300,8 +300,6 @@ void setup()
   }
 
 //  setWifiMode(WIFI_STA);
-  checkRuleSets();
-
   // if different version, eeprom settings structure has changed. Full Reset needed
   // on a fresh ESP module eeprom values are set to 255. Version results into -1 (signed int)
   if (Settings.Version != VERSION || Settings.PID != ESP_PROJECT_PID)
@@ -360,13 +358,11 @@ void setup()
   {
     String event = F("System#NoSleep=");
     event += Settings.deepSleep_wakeTime;
-    rulesProcessing(event); // TD-er: Process events in the setup() now.
   }
 
   if (Settings.UseRules)
   {
     String event = F("System#Wake");
-    rulesProcessing(event); // TD-er: Process events in the setup() now.
   }
 
   setWebserverRunning(true);
@@ -396,8 +392,6 @@ void setup()
 
   if (Settings.UseRules)
   {
-    String event = F("System#Boot");
-    rulesProcessing(event); // TD-er: Process events in the setup() now.
   }
 
   writeDefaultCSS();
@@ -758,7 +752,6 @@ void run10TimesPerSecond() {
     CPluginCall(CPlugin::Function::CPLUGIN_TEN_PER_SECOND, 0, dummy);
     STOP_TIMER(CPLUGIN_CALL_10PS);
   }
-  processNextEvent();
   
   #ifdef USES_C015
   if (WiFiConnected())
@@ -829,8 +822,6 @@ void runOncePerSecond()
         event += '0';
       }
       event += node_time.minute();
-      // TD-er: Do not add to the eventQueue, but execute right now.
-      rulesProcessing(event);
     }
   }
 
@@ -838,10 +829,6 @@ void runOncePerSecond()
   String dummy;
   PluginCall(PLUGIN_ONCE_A_SECOND, 0, dummy);
 //  unsigned long elapsed = micros() - start;
-
-  if (Settings.UseRules)
-    rulesTimers();
-
 
   if (SecuritySettings.Password[0] != 0)
   {

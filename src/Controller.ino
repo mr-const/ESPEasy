@@ -17,10 +17,6 @@ void sendData(struct EventStruct *event)
   checkRAM(F("sendData"));
   LoadTaskSettings(event->TaskIndex);
 
-  if (Settings.UseRules) {
-    createRuleEvents(event);
-  }
-
   if (Settings.UseValueLogger && Settings.InitSPI && (Settings.Pin_sd_cs >= 0)) {
     SendValueLogger(event->TaskIndex);
   }

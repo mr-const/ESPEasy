@@ -72,8 +72,6 @@ class AudioLogRedirect : public Print
 }
 
   virtual size_t write(const uint8_t *buffer, size_t size) override {
-    addLog(LOG_LEVEL_INFO, F("AUDIO LOG REQUESTED!"));
-
     ::addToSerialBuffer(String(millis()).c_str());
     ::addToSerialBuffer(" : ");
     String loglevelDisplayString = "AUDIO";
@@ -91,7 +89,6 @@ AudioLogRedirect logger;
 
 void mp3StatusCB(void *cbData, int code, const char *string)
 {
-  addLog(LOG_LEVEL_INFO, F("Mp3 status inbound"));
   addLog(LOG_LEVEL_ERROR, String(F("MP3 Status: ")) + string);
 }
 

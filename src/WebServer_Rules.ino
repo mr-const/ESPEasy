@@ -114,7 +114,6 @@ void handle_rules() {
   sendHeadandTail_stdtemplate(true);
   TXBuffer.endStream();
 
-  checkRuleSets();
 }
 
 // ********************************************************************************
@@ -185,9 +184,6 @@ void handle_rules_new() {
                                      count++;
                                      addHtml(F("<TR><TD style='text-align:right'>"));
                                    }
-
-                                   // Event Name
-                                   addHtml(FileNameToEvent(fi.Name));
 
                                    if (fi.isDirectory)
                                    {
@@ -404,7 +400,6 @@ bool handle_rules_edit(String originalUri, bool isAddNew) {
     if (isAddNew)
     {
       eventName = web_server.arg(F("eventName"));
-      fileName += EventToFileName(eventName);
     }
     else
     {
@@ -415,7 +410,6 @@ bool handle_rules_edit(String originalUri, bool isAddNew) {
       fileName = F("/rules/");
         #endif // if defined(ESP32)
       fileName += originalUri.substring(7, originalUri.length() - 4);
-      eventName = FileNameToEvent(fileName);
     }
       #ifdef WEBSERVER_RULES_DEBUG
     Serial.print(F("File name: "));
@@ -502,7 +496,7 @@ bool handle_rules_edit(String originalUri, bool isAddNew) {
     addFormTextBox(F("Event name")            // Label
                    , F("eventName")           // field name
                    , eventName                // field value
-                   , RULE_MAX_FILENAME_LENGTH // max length
+                   , 0 // max length
                    , isReadOnly               // is readonly
                    , isAddNew                 // required
                    , F("[A-Za-z]+#.+")        // validation pattern
@@ -571,7 +565,6 @@ bool Rule_Download(const String& path)
     return false;
   }
   String filename = path + String(F(".txt"));
-  filename.replace(RULE_FILE_SEPARAROR, '_');
   String str = String(F("attachment; filename=")) + filename;
   web_server.sendHeader(F("Content-Disposition"), str);
   web_server.sendHeader(F("Cache-Control"),       F("max-age=3600, public"));
